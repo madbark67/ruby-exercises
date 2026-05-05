@@ -1,4 +1,5 @@
 def permutations(array)
+  stored_array = Array.new()
   # Write a method that takes in an array of integers and returns an array of
   # all possible permutations of the original array. The permutations of a set
   # are the different ways the elements can be arranged.
@@ -13,4 +14,15 @@ def permutations(array)
   #
   # NOTE: the tests do not check for ordering, so a return of `[[1, 2], [2, 1]]`
   # will be treated the same as `[[2, 1], [1, 2]]`
+  if array.empty?
+    return [[]]
+  end
+  array.each_with_index do |value,index|
+    choices = array.dup
+    choices.delete_at(index)
+    permutations(choices).each do |permute|
+      stored_array << permute.prepend(value)
+    end
+  end
+  return stored_array
 end
